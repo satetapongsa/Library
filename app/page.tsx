@@ -335,12 +335,6 @@ export default async function HomePage() {
                   <BookOpen className="w-4 h-4 text-white" />
                   เปิดดูคลังหนังสือทั้งหมด
                 </Link>
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs transition-colors"
-                >
-                  เข้าสู่ระบบ Admin
-                </Link>
               </div>
             </div>
           </div>

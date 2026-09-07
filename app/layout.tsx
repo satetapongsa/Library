@@ -2,23 +2,50 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://library-satetapongsa.vercel.app"),
   title: "Digital Library — อ่านหนังสือและเอกสารออนไลน์ได้ทุกที่",
   description:
-    "Modern digital library platform with high-performance in-browser reader, PDF indexing, instant streaming, and comprehensive document catalog.",
+    "คลังหนังสือและเอกสารออนไลน์ อ่านฟรีทุกที่ทุกเวลา รองรับทั้งอนิเมะ มังงะ นิยาย เรื่องผี วิทยาศาสตร์ การเรียน และธุรกิจ",
   keywords: [
     "digital library",
     "pdf reader",
-    "online documents",
-    "books",
+    "อ่านหนังสือออนไลน์",
+    "อ่านการ์ตูน",
+    "นิยาย",
+    "วิทยาศาสตร์",
     "ebook viewer",
-    "technical manuals",
   ],
-  authors: [{ name: "Digital Library Team" }],
+  authors: [{ name: "satetapongsa" }],
+  icons: {
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
+  },
   openGraph: {
     title: "Digital Library — อ่านหนังสือและเอกสารออนไลน์ได้ทุกที่",
     description:
-      "Modern digital library platform with high-performance in-browser reader, PDF indexing, and instant streaming.",
+      "คลังหนังสือและเอกสารออนไลน์ อ่านฟรีทุกที่ทุกเวลา ด้วยระบบอ่าน PDF ประสิทธิภาพสูง",
+    url: "https://library-satetapongsa.vercel.app",
+    siteName: "Digital Library",
+    locale: "th_TH",
     type: "website",
+    images: [
+      {
+        url: "/logo.svg",
+        width: 512,
+        height: 512,
+        alt: "Digital Library Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Digital Library — อ่านหนังสือและเอกสารออนไลน์ได้ทุกที่",
+    description: "คลังหนังสือและเอกสารออนไลน์ อ่านฟรีทุกที่ทุกเวลา",
+    images: ["/logo.svg"],
   },
 };
 

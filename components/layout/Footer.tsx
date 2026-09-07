@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Shield } from "lucide-react";
+import { BookOpen, HelpCircle } from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,8 +8,8 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <div className="sm:col-span-2 space-y-3">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold shadow-xs">
-                <BookOpen className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-lg overflow-hidden shadow-xs">
+                <img src="/logo.svg" alt="Digital Library Logo" className="w-full h-full object-cover" />
               </div>
               <span className="font-bold text-slate-900 text-base">
                 Digital Library
@@ -55,29 +55,30 @@ export function Footer() {
 
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-3">
-              การจัดการระบบ
+              บริการ & การใช้งาน
             </h4>
             <ul className="space-y-2 text-xs text-slate-600">
               <li>
-                <Link href="/admin/login" className="hover:text-blue-600 transition-colors flex items-center gap-1.5 font-medium text-slate-700">
-                  <Shield className="w-3.5 h-3.5 text-blue-600" />
-                  เข้าสู่ระบบผู้ดูแล (Admin Portal)
+                <Link href="/library" className="hover:text-blue-600 transition-colors flex items-center gap-1.5 font-medium text-slate-700">
+                  <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+                  เปิดดูหนังสือทั้งหมด
                 </Link>
               </li>
               <li>
-                <Link href="/admin/upload" className="hover:text-blue-600 transition-colors">
-                  อัปโหลดหนังสือใหม่ (Upload PDF)
+                <Link href="/library?featured=true" className="hover:text-blue-600 transition-colors">
+                  หนังสือแนะนำประจำสัปดาห์
                 </Link>
               </li>
               <li>
-                <Link href="/admin/documents" className="hover:text-blue-600 transition-colors">
-                  รายการหนังสือทั้งหมด (Documents Table)
+                <Link href="/library?sort=popular" className="hover:text-blue-600 transition-colors">
+                  หนังสือยอดนิยม (Most Read)
                 </Link>
               </li>
               <li>
-                <Link href="/admin/categories" className="hover:text-blue-600 transition-colors">
-                  จัดการหมวดหมู่ (Categories)
-                </Link>
+                <span className="text-slate-500 flex items-center gap-1">
+                  <HelpCircle className="w-3 h-3 text-slate-400" />
+                  อ่านได้ทันที ไม่ต้องดาวน์โหลด
+                </span>
               </li>
             </ul>
           </div>
@@ -86,11 +87,11 @@ export function Footer() {
         <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Digital Library. All rights reserved.</p>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-100">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-100">
               Clean White Theme
             </span>
             <span>•</span>
-            <span>Zero-DB Standalone Edition</span>
+            <span>Open Access Edition</span>
           </div>
         </div>
       </div>
