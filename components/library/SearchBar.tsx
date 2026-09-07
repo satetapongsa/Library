@@ -15,7 +15,7 @@ interface SearchSuggestion {
 }
 
 export function SearchBar({
-  placeholder = "Search books, documents, authors, topics...",
+  placeholder = "ค้นหาชื่อหนังสือ, ผู้แต่ง, หมวดหมู่, หัวข้อ...",
   className = "",
   initialQuery = "",
 }: {
@@ -83,7 +83,7 @@ export function SearchBar({
       <form onSubmit={handleSubmit} className="relative flex items-center">
         <div className="absolute left-4 text-slate-400">
           {isLoading ? (
-            <Loader2 className="w-5 h-5 animate-spin text-indigo-500" />
+            <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
           ) : (
             <Search className="w-5 h-5" />
           )}
@@ -97,7 +97,7 @@ export function SearchBar({
             if (suggestions.length > 0) setIsOpen(true);
           }}
           placeholder={placeholder}
-          className="w-full pl-12 pr-24 py-3.5 sm:py-4 rounded-2xl bg-white dark:bg-slate-900/90 text-slate-900 dark:text-slate-100 placeholder-slate-400 border border-slate-200 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 text-sm sm:text-base transition-all"
+          className="w-full pl-12 pr-28 py-3.5 sm:py-4 rounded-xl bg-white text-slate-900 placeholder:text-slate-400 border border-slate-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base transition-all"
         />
 
         <div className="absolute right-3 flex items-center gap-1.5">
@@ -109,7 +109,8 @@ export function SearchBar({
                 setSuggestions([]);
                 setIsOpen(false);
               }}
-              className="p-1 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              title="ล้างข้อความ"
             >
               <X className="w-4 h-4" />
             </button>
@@ -117,52 +118,52 @@ export function SearchBar({
 
           <button
             type="submit"
-            className="px-3.5 py-1.5 sm:py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold shadow-md shadow-indigo-600/30 transition-all cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold shadow-xs transition-all cursor-pointer"
           >
-            Search
+            ค้นหา
           </button>
         </div>
       </form>
 
       {/* Suggestions Dropdown */}
       {isOpen && suggestions.length > 0 && (
-        <div className="absolute top-full mt-2 left-0 right-0 z-50 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden backdrop-blur-lg">
-          <div className="p-2 border-b border-slate-100 dark:border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-3">
-            Matching Documents
+        <div className="absolute top-full mt-2 left-0 right-0 z-50 rounded-xl bg-white border border-slate-200 shadow-xl overflow-hidden">
+          <div className="p-2.5 border-b border-slate-100 text-[11px] font-bold text-slate-500 uppercase tracking-wider px-3 bg-slate-50">
+            เอกสารที่ค้นพบ
           </div>
-          <div className="divide-y divide-slate-100 dark:divide-slate-800/60 max-h-72 overflow-y-auto">
+          <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto">
             {suggestions.map((item) => (
               <Link
                 key={item.id}
                 href={`/document/${item.slug || item.id}`}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 hover:bg-indigo-50/70 dark:hover:bg-slate-800/60 transition-colors group"
+                className="flex items-center gap-3 p-3 hover:bg-blue-50/60 transition-colors group"
               >
-                <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0 group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0 group-hover:scale-105 transition-transform">
                   <BookOpen className="w-4 h-4" />
                 </div>
                 <div className="flex-grow min-w-0">
-                  <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                  <p className="text-sm font-bold text-slate-900 truncate group-hover:text-blue-600">
                     {item.title}
                   </p>
-                  <p className="text-xs text-slate-400 truncate">
-                    {item.author || "Unknown"} {item.category ? `• ${item.category.name}` : ""}
+                  <p className="text-xs text-slate-500 truncate">
+                    {item.author || "ไม่ระบุผู้แต่ง"} {item.category ? `• ${item.category.name}` : ""}
                   </p>
                 </div>
-                <span className="text-xs text-slate-400 flex-shrink-0">
-                  {item.pageCount}p
+                <span className="text-xs text-slate-400 flex-shrink-0 font-medium">
+                  {item.pageCount} หน้า
                 </span>
               </Link>
             ))}
           </div>
 
-          <div className="p-2 bg-slate-50 dark:bg-slate-800/40 text-center">
+          <div className="p-2.5 bg-slate-50 text-center border-t border-slate-100">
             <Link
               href={`/library?q=${encodeURIComponent(query)}`}
               onClick={() => setIsOpen(false)}
-              className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
+              className="text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline inline-flex items-center gap-1"
             >
-              See all results for "{query}" <ArrowRight className="w-3.5 h-3.5" />
+              ดูผลลัพธ์ทั้งหมดสำหรับ "{query}" <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

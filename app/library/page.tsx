@@ -5,12 +5,10 @@ import { Footer } from "@/components/layout/Footer";
 import { DocumentCard } from "@/components/library/DocumentCard";
 import { SearchBar } from "@/components/library/SearchBar";
 import {
-  Filter,
   SlidersHorizontal,
   ChevronLeft,
   ChevronRight,
   BookOpen,
-  Sparkles,
 } from "lucide-react";
 
 interface LibraryPageProps {
@@ -73,7 +71,7 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
       <Header />
 
       <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
@@ -81,10 +79,10 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
                 คลังหนังสือและเอกสารดิจิทัล
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
                 มีหนังสือและเอกสารทั้งหมด {totalDocs} เล่ม พร้อมให้เปิดอ่านออนไลน์ได้ทันที
               </p>
             </div>
@@ -95,15 +93,15 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           </div>
 
           {/* Filter Bar */}
-          <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-wrap items-center justify-between gap-3">
+          <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
             {/* Category Filters */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full no-scrollbar">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
               <Link
                 href={makeUrl({ category: "all", page: 1 })}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors ${
                   categorySlug === "all"
-                    ? "bg-slate-900 dark:bg-blue-600 text-white shadow-xs"
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-700 hover:bg-slate-200"
                 }`}
               >
                 ทั้งหมด
@@ -112,23 +110,23 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
                 <Link
                   key={c.id}
                   href={makeUrl({ category: c.slug, page: 1 })}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                     categorySlug === c.slug
-                      ? "bg-slate-900 dark:bg-blue-600 text-white shadow-xs"
-                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      ? "bg-blue-600 text-white shadow-xs"
+                      : "text-slate-700 hover:bg-slate-200"
                   }`}
                 >
                   <span>{c.name}</span>
-                  <span className="text-[10px] opacity-75">({c._count.documents})</span>
+                  <span className="text-[10px] opacity-75 font-normal">({c._count.documents})</span>
                 </Link>
               ))}
             </div>
 
             {/* Sort Dropdown */}
-            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 ml-auto flex-shrink-0">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
-              <span className="font-medium">จัดเรียง:</span>
-              <div className="flex items-center gap-0.5 bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg">
+            <div className="flex items-center gap-2 text-xs text-slate-600 ml-auto flex-shrink-0">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" />
+              <span className="font-bold">จัดเรียง:</span>
+              <div className="flex items-center gap-0.5 bg-slate-200 p-0.5 rounded-lg">
                 {[
                   { key: "newest", label: "ล่าสุด" },
                   { key: "popular", label: "ยอดนิยม" },
@@ -140,8 +138,8 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
                     href={makeUrl({ sort: s.key, page: 1 })}
                     className={`px-2.5 py-1 rounded-md text-xs transition-colors ${
                       sort === s.key
-                        ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold"
-                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                        ? "bg-white text-blue-700 shadow-xs font-bold"
+                        : "text-slate-700 hover:text-slate-900"
                     }`}
                   >
                     {s.label}
@@ -161,23 +159,23 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           </div>
         ) : (
           /* Empty State */
-          <div className="py-20 text-center rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 max-w-lg mx-auto">
-            <div className="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-500 mx-auto mb-4">
+          <div className="py-20 text-center rounded-2xl bg-slate-50 border border-slate-200 p-8 max-w-lg mx-auto">
+            <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 mx-auto mb-4">
               <BookOpen className="w-8 h-8" />
             </div>
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">
-              No documents found
+            <h3 className="text-lg font-bold text-slate-900 mb-2">
+              ไม่พบหนังสือหรือเอกสาร
             </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+            <p className="text-sm text-slate-600 mb-6">
               {q
-                ? `No books or publications match your search query "${q}".`
-                : "No documents currently in this selected category."}
+                ? `ไม่พบผลงานที่ตรงกับคำค้นหา "${q}"`
+                : "ยังไม่มีเอกสารในหมวดหมู่นี้ในขณะนี้"}
             </p>
             <Link
               href="/library"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition-all"
             >
-              Clear Filters & Show All
+              ล้างตัวกรองและแสดงทั้งหมด
             </Link>
           </div>
         )}
@@ -187,24 +185,24 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           <div className="mt-12 flex items-center justify-center gap-2">
             <Link
               href={makeUrl({ page: Math.max(1, page - 1) })}
-              className={`p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${
+              className={`p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors ${
                 page <= 1 ? "pointer-events-none opacity-40" : ""
               }`}
-              aria-label="Previous page"
+              aria-label="หน้าก่อนหน้า"
             >
               <ChevronLeft className="w-5 h-5" />
             </Link>
 
-            <span className="text-xs font-semibold px-4 text-slate-600 dark:text-slate-400">
-              Page {page} of {totalPages}
+            <span className="text-xs font-bold px-4 text-slate-700">
+              หน้า {page} จาก {totalPages}
             </span>
 
             <Link
               href={makeUrl({ page: Math.min(totalPages, page + 1) })}
-              className={`p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${
+              className={`p-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors ${
                 page >= totalPages ? "pointer-events-none opacity-40" : ""
               }`}
-              aria-label="Next page"
+              aria-label="หน้าถัดไป"
             >
               <ChevronRight className="w-5 h-5" />
             </Link>

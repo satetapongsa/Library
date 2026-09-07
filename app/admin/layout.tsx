@@ -29,11 +29,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   }
 
   const navItems = [
-    { href: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
-    { href: "/admin/documents", label: "Documents", icon: FileText },
-    { href: "/admin/upload", label: "Upload Document", icon: UploadCloud },
-    { href: "/admin/categories", label: "Categories", icon: FolderTree },
-    { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+    { href: "/admin", label: "ภาพรวม (Overview)", icon: LayoutDashboard, exact: true },
+    { href: "/admin/documents", label: "จัดการเอกสาร (Documents)", icon: FileText },
+    { href: "/admin/upload", label: "อัปโหลดหนังสือ (Upload)", icon: UploadCloud },
+    { href: "/admin/categories", label: "หมวดหมู่ (Categories)", icon: FolderTree },
+    { href: "/admin/analytics", label: "สถิติการอ่าน (Analytics)", icon: BarChart3 },
   ];
 
   const handleLogout = async () => {
@@ -47,18 +47,20 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen flex bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen flex bg-slate-50 text-slate-900">
+      <ThemeToggle />
+
       {/* ADMIN SIDEBAR */}
-      <aside className="w-64 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md">
+      <aside className="w-64 flex-shrink-0 hidden md:flex flex-col border-r border-slate-200 bg-white">
         {/* Brand */}
-        <div className="h-16 px-6 flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80">
+        <div className="h-16 px-6 flex items-center justify-between border-b border-slate-200">
           <Link href="/admin" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-600/30">
-              <BookOpen className="w-4 h-4" />
+            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs">
+              <BookOpen className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-bold text-sm tracking-tight block">Digital Library</span>
-              <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold block -mt-0.5">
+              <span className="font-bold text-sm text-slate-900 block">Digital Library</span>
+              <span className="text-[11px] text-blue-600 font-bold block -mt-0.5">
                 Admin Console
               </span>
             </div>
@@ -77,10 +79,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                   isActive
-                    ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20"
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-700 hover:bg-slate-100 hover:text-blue-600"
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -91,21 +93,21 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </nav>
 
         {/* Bottom Actions */}
-        <div className="p-4 border-t border-slate-200/80 dark:border-slate-800/80 space-y-2">
+        <div className="p-4 border-t border-slate-200 space-y-2">
           <Link
             href="/"
-            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
+            className="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors"
           >
-            <span>Public Library</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <span>กลับสู่หน้าเว็บหลัก</span>
+            <ArrowUpRight className="w-4 h-4" />
           </Link>
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+            className="w-full flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
-            <span>Sign Out</span>
+            <span>ออกจากระบบ</span>
           </button>
         </div>
       </aside>
@@ -113,41 +115,39 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       {/* MAIN CONTENT AREA */}
       <div className="flex-grow flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="h-16 px-4 sm:px-8 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 backdrop-blur-md flex items-center justify-between z-10">
+        <header className="h-16 px-4 sm:px-8 border-b border-slate-200 bg-white flex items-center justify-between z-10 shadow-xs">
           <div className="flex items-center gap-2">
-            <span className="md:hidden font-bold text-sm">Admin Console</span>
-            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
-              <Shield className="w-3.5 h-3.5" />
-              <span>Admin Verified</span>
+            <span className="md:hidden font-bold text-sm text-slate-900">Admin Console</span>
+            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">
+              <Shield className="w-3.5 h-3.5 text-emerald-600" />
+              <span>ผู้ดูแลระบบ (Admin)</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Quick Links for mobile */}
-            <div className="md:hidden flex items-center gap-1">
+            <div className="md:hidden flex items-center gap-2">
               <Link
                 href="/admin"
-                className="p-2 text-xs font-semibold text-slate-600 dark:text-slate-300"
+                className="text-xs font-bold text-slate-700 hover:text-blue-600"
               >
-                Overview
+                ภาพรวม
               </Link>
               <Link
                 href="/admin/upload"
-                className="p-2 text-xs font-semibold text-indigo-600 dark:text-indigo-400"
+                className="text-xs font-bold text-blue-600"
               >
-                Upload
+                อัปโหลด
               </Link>
             </div>
 
-            <ThemeToggle />
-
-            <div className="flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-slate-800">
-              <div className="w-8 h-8 rounded-full bg-indigo-600/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
+            <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
+              <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
                 AD
               </div>
               <div className="hidden sm:block text-left">
-                <span className="text-xs font-bold block leading-none">Admin</span>
-                <span className="text-[10px] text-slate-400">admin@digitallibrary.local</span>
+                <span className="text-xs font-bold text-slate-900 block leading-none">System Admin</span>
+                <span className="text-[11px] text-slate-500">admin@digitallibrary.local</span>
               </div>
             </div>
           </div>

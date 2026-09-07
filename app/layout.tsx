@@ -28,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 dark:bg-[#090d16] dark:text-slate-100">{children}</body>
+    <html lang="th" className="h-full light" style={{ colorScheme: "light" }} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-white text-slate-900">{children}</body>
     </html>
   );
 }

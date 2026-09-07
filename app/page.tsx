@@ -63,7 +63,6 @@ function renderCategoryIcon(iconName: string) {
 }
 
 export default async function HomePage() {
-  // Fetch real data from LibraryService (Zero-DB / Local State Architecture)
   const [categories, featuredRes, latestRes, popularRes, analytics] =
     await Promise.all([
       LibraryService.getCategories(),
@@ -80,29 +79,29 @@ export default async function HomePage() {
   const totalViews = analytics.totalViews;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
       <Header />
 
       <main className="flex-grow">
-        {/* BUSINESS MINIMAL HERO SECTION */}
-        <section className="relative bg-white dark:bg-[#0b101b] pt-12 pb-16 sm:pt-16 sm:pb-24 border-b border-slate-200 dark:border-slate-800">
-          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            {/* Business Pill badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+        {/* BRIGHT CLEAN HERO SECTION */}
+        <section className="bg-gradient-to-b from-blue-50/50 via-white to-white pt-12 pb-14 sm:pt-16 sm:pb-20 border-b border-slate-200">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* Pill badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold mb-6 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
               <span>Digital Library • คลังหนังสือและเอกสารดิจิทัลออนไลน์</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.2] mb-5">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.2] mb-5">
               ศูนย์รวมหนังสือและเอกสารออนไลน์
               <br />
-              <span className="text-blue-600 dark:text-blue-400">
+              <span className="text-blue-600">
                 เข้าถึงง่าย อ่านได้ทันทีทุกที่ทุกเวลา
               </span>
             </h1>
 
-            <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-              รวบรวมหนังสือหลากหลายประเภท ทั้งอนิเมะ มังงะ นิยาย วรรณกรรม ผีสยองขวัญ ตำนานโบราณ วิทยาศาสตร์ การเรียน ตำราวิชาการ การทดลอง และธุรกิจ พร้อมระบบอ่าน PDF ออนไลน์ประสิทธิภาพสูง
+            <p className="max-w-2xl mx-auto text-base text-slate-600 mb-8 leading-relaxed">
+              รวบรวมหนังสือหลากหลายประเภท ทั้งอนิเมะ มังงะ นิยาย วรรณกรรม ผีสยองขวัญ ตำนาน วิทยาศาสตร์ การเรียน ตำรา และธุรกิจ พร้อมระบบอ่าน PDF ออนไลน์ประสิทธิภาพสูง
             </p>
 
             {/* Interactive Instant Search Bar */}
@@ -111,77 +110,65 @@ export default async function HomePage() {
             </div>
 
             {/* Quick Filter Tag Chips */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mb-8">
-              <span className="font-medium mr-1">หมวดหมู่แนะนำ:</span>
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-600 mb-8">
+              <span className="font-semibold text-slate-700 mr-1">หมวดหมู่ยอดนิยม:</span>
               <Link
                 href="/library?category=anime-manga"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
+                className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 font-medium transition-colors border border-slate-200"
               >
                 อนิเมะ & มังงะ
               </Link>
               <Link
                 href="/library?category=novels-fiction"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
+                className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 font-medium transition-colors border border-slate-200"
               >
-                นิยาย
+                นวนิยาย
               </Link>
               <Link
                 href="/library?category=horror-ghost"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
+                className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 font-medium transition-colors border border-slate-200"
               >
                 ผี & สยองขวัญ
               </Link>
               <Link
-                href="/library?category=myths-legends"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
-              >
-                ตำนานโบราณ
-              </Link>
-              <Link
                 href="/library?category=science-tech"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
+                className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 font-medium transition-colors border border-slate-200"
               >
                 วิทยาศาสตร์
               </Link>
               <Link
-                href="/library?category=experiments-research"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
-              >
-                การทดลอง & วิจัย
-              </Link>
-              <Link
                 href="/library?category=business-finance"
-                className="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
+                className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 font-medium transition-colors border border-slate-200"
               >
-                ธุรกิจ
+                ธุรกิจ & ลงทุน
               </Link>
             </div>
 
             {/* Stats row */}
-            <div className="inline-flex flex-wrap items-center justify-center gap-6 sm:gap-10 py-3 px-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-xs font-medium text-slate-600 dark:text-slate-400">
+            <div className="inline-flex flex-wrap items-center justify-center gap-6 sm:gap-10 py-3.5 px-6 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <BookOpen className="w-4 h-4 text-blue-600" />
                 <span>
-                  <strong className="text-slate-900 dark:text-white font-bold">{totalDocs}</strong> เล่มในคลัง
+                  <strong className="text-slate-900 font-bold">{totalDocs}</strong> เล่มในคลัง
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                <Layers className="w-4 h-4 text-slate-600" />
                 <span>
-                  <strong className="text-slate-900 dark:text-white font-bold">{categories.length}</strong> หมวดหมู่
+                  <strong className="text-slate-900 font-bold">{categories.length}</strong> หมวดหมู่
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <TrendingUp className="w-4 h-4 text-emerald-600" />
                 <span>
-                  <strong className="text-slate-900 dark:text-white font-bold">
+                  <strong className="text-slate-900 font-bold">
                     {(totalViews || 0).toLocaleString()}
                   </strong> ครั้งการเข้าอ่าน
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                <span>ระบบสตรีมมิ่งไฟล์ PDF</span>
+                <ShieldCheck className="w-4 h-4 text-blue-600" />
+                <span>ระบบสตรีมมิ่งไฟล์ PDF ความเร็วสูง</span>
               </div>
             </div>
           </div>
@@ -191,16 +178,16 @@ export default async function HomePage() {
         <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                 หมวดหมู่หนังสือและเอกสาร
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-xs sm:text-sm text-slate-600">
                 เลือกอ่านตามความสนใจ ครอบคลุมทั้งสาระ ความรู้ และความบันเทิง
               </p>
             </div>
             <Link
               href="/library"
-              className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+              className="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
             >
               ดูทั้งหมด <ArrowRight className="w-4 h-4" />
             </Link>
@@ -211,16 +198,16 @@ export default async function HomePage() {
               <Link
                 key={cat.id}
                 href={`/library?category=${cat.slug}`}
-                className="group p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 shadow-xs hover:shadow-sm transition-all flex flex-col items-center text-center gap-2.5"
+                className="group p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-500 shadow-xs hover:shadow-md transition-all flex flex-col items-center text-center gap-2.5"
               >
-                <div className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950/50 dark:group-hover:text-blue-400 flex items-center justify-center transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-colors">
                   {renderCategoryIcon(cat.icon || "Layers")}
                 </div>
                 <div className="w-full">
-                  <h3 className="font-semibold text-xs text-slate-900 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-1">
+                  <h3 className="font-bold text-xs text-slate-900 group-hover:text-blue-600 line-clamp-1">
                     {cat.name}
                   </h3>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5 block">
+                  <span className="text-[11px] text-slate-500 mt-0.5 block font-medium">
                     {cat._count.documents} เล่ม
                   </span>
                 </div>
@@ -231,25 +218,25 @@ export default async function HomePage() {
 
         {/* FEATURED DOCUMENTS */}
         {featuredDocs.length > 0 && (
-          <section className="py-12 bg-white dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+          <section className="py-12 bg-slate-50/70 border-y border-slate-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
-                    <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 rounded-lg bg-blue-100 text-blue-700">
+                    <Sparkles className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                       หนังสือและเอกสารแนะนำ
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                    <p className="text-xs sm:text-sm text-slate-600">
                       ผลงานคัดสรรที่น่าสนใจและได้รับความนิยม
                     </p>
                   </div>
                 </div>
                 <Link
                   href="/library?featured=true"
-                  className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                  className="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
                 >
                   ดูทั้งหมด <ChevronRight className="w-4 h-4" />
                 </Link>
@@ -268,14 +255,14 @@ export default async function HomePage() {
         <section className="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
-                <Clock className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <div className="p-2 rounded-lg bg-blue-100 text-blue-700">
+                <Clock className="w-4 h-4 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                   เพิ่มเข้ามาล่าสุด
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                <p className="text-xs sm:text-sm text-slate-600">
                   หนังสือและเอกสารที่เพิ่งอัปโหลดเข้าสู่ระบบ
                 </p>
               </div>
@@ -283,7 +270,7 @@ export default async function HomePage() {
 
             <Link
               href="/library"
-              className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+              className="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
             >
               เปิดคลังหนังสือทั้งหมด <ArrowRight className="w-4 h-4" />
             </Link>
@@ -297,18 +284,18 @@ export default async function HomePage() {
         </section>
 
         {/* POPULAR DOCUMENTS */}
-        <section className="py-14 bg-white dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-800">
+        <section className="py-14 bg-slate-50/70 border-t border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
-                  <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700">
+                  <TrendingUp className="w-4 h-4 text-emerald-600" />
                 </div>
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                     หนังสือยอดนิยม
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                  <p className="text-xs sm:text-sm text-slate-600">
                     หนังสือที่มีผู้อ่านมากที่สุดในระบบ
                   </p>
                 </div>
@@ -316,7 +303,7 @@ export default async function HomePage() {
 
               <Link
                 href="/library?sort=popular"
-                className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                className="text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-1"
               >
                 ดูอันดับยอดนิยม <ChevronRight className="w-4 h-4" />
               </Link>
@@ -330,27 +317,27 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* CORPORATE BUSINESS CTA BANNER */}
+        {/* BRIGHT CLEAN CTA BANNER */}
         <section className="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="p-8 sm:p-12 rounded-2xl bg-slate-900 text-white shadow-lg relative overflow-hidden">
+          <div className="p-8 sm:p-12 rounded-2xl bg-blue-50 border border-blue-200 text-slate-900 shadow-sm relative overflow-hidden">
             <div className="relative z-10 max-w-xl mx-auto">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-3 tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-extrabold mb-3 tracking-tight text-slate-900">
                 พร้อมเริ่มการอ่านของคุณแล้วหรือยัง?
               </h3>
-              <p className="text-slate-300 text-sm sm:text-base mb-6 leading-relaxed">
+              <p className="text-slate-600 text-sm sm:text-base mb-6 leading-relaxed">
                 สัมผัสประสบการณ์การอ่านหนังสือและเอกสาร PDF ออนไลน์แบบเต็มจอ ปรับซูม ค้นหาหน้า และบุ๊กมาร์กได้ทันทีโดยไม่ต้องติดตั้งโปรแกรมเสริม
               </p>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href="/library"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-md transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-colors"
                 >
-                  <BookOpen className="w-4 h-4" />
+                  <BookOpen className="w-4 h-4 text-white" />
                   เปิดดูคลังหนังสือทั้งหมด
                 </Link>
                 <Link
                   href="/admin"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-sm border border-slate-300 shadow-xs transition-colors"
                 >
                   เข้าสู่ระบบ Admin
                 </Link>

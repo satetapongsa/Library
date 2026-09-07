@@ -30,13 +30,13 @@ function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Login failed");
+        throw new Error(data.error || "เข้าสู่ระบบไม่สำเร็จ");
       }
 
       router.push(from);
       router.refresh();
     } catch (err: any) {
-      setError(err.message || "Invalid email or password");
+      setError(err.message || "อีเมลหรือรหัสผ่านไม่ถูกต้อง");
     } finally {
       setIsLoading(false);
     }
@@ -47,26 +47,26 @@ function LoginForm() {
       {/* Logo */}
       <div className="text-center mb-8">
         <Link href="/" className="inline-flex items-center gap-3 group mb-3">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 group-hover:scale-105 transition-transform">
-            <BookOpen className="w-6 h-6" />
+          <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+            <BookOpen className="w-6 h-6 text-white" />
           </div>
-          <span className="text-xl font-bold">Digital Library</span>
+          <span className="text-2xl font-bold text-slate-900">Digital Library</span>
         </Link>
-        <div className="flex items-center justify-center gap-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-          <Shield className="w-3.5 h-3.5" />
-          <span>Administrator Control Portal</span>
+        <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-blue-600">
+          <Shield className="w-4 h-4" />
+          <span>ระบบจัดการผู้ดูแล (Admin Portal)</span>
         </div>
       </div>
 
       {/* Login Box */}
-      <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-2xl">
-        <h2 className="text-xl font-bold mb-1">Admin Sign In</h2>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
-          Enter your credentials to manage publications and system analytics.
+      <div className="p-8 rounded-2xl bg-white border border-slate-200 shadow-xl">
+        <h2 className="text-xl font-bold text-slate-900 mb-1">เข้าสู่ระบบผู้ดูแล</h2>
+        <p className="text-xs text-slate-500 mb-6">
+          กรอกข้อมูลเพื่อจัดการคลังหนังสือ อัปโหลดไฟล์ และดูสถิติ
         </p>
 
         {error && (
-          <div className="p-3 mb-6 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
+          <div className="p-3 mb-6 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
@@ -74,64 +74,64 @@ function LoginForm() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
-              Admin Email
+            <label className="block text-xs font-bold mb-1.5 text-slate-700">
+              อีเมลแอดมิน (Admin Email)
             </label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="admin@digitallibrary.local"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold mb-1.5 text-slate-700 dark:text-slate-300">
-              Password
+            <label className="block text-xs font-bold mb-1.5 text-slate-700">
+              รหัสผ่าน (Password)
             </label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="••••••••"
             />
           </div>
 
           {/* Hint for demonstration */}
-          <div className="p-3 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-[11px] text-indigo-700 dark:text-indigo-300">
-            💡 <strong>Demo Credentials:</strong>
+          <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900">
+            💡 <strong>ข้อมูลทดสอบระบบ:</strong>
             <br />
-            Email: <code className="font-mono">admin@digitallibrary.local</code>
+            Email: <code className="font-mono font-bold">admin@digitallibrary.local</code>
             <br />
-            Password: <code className="font-mono">admin123</code>
+            Password: <code className="font-mono font-bold">admin123</code>
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-md shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
+            className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
           >
             {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
             ) : (
               <>
-                <span>Sign In to Dashboard</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>เข้าสู่ระบบ Dashboard</span>
+                <ArrowRight className="w-4 h-4 text-white" />
               </>
             )}
           </button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
+        <div className="mt-6 pt-6 border-t border-slate-100 text-center">
           <Link
             href="/"
-            className="text-xs text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium"
+            className="text-xs text-slate-600 hover:text-blue-600 font-bold"
           >
-            ← Return to Public Library
+            ← กลับสู่หน้าหลัก (Public Library)
           </Link>
         </div>
       </div>
@@ -141,8 +141,8 @@ function LoginForm() {
 
 export default function AdminLoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100">
-      <Suspense fallback={<div className="text-slate-400 text-xs">Loading sign in...</div>}>
+    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 text-slate-900">
+      <Suspense fallback={<div className="text-slate-500 text-xs">กำลังโหลด...</div>}>
         <LoginForm />
       </Suspense>
     </div>
