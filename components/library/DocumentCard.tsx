@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BookOpen, Eye, FileText, Sparkles } from "lucide-react";
 import { formatBytes } from "@/lib/utils";
+import { BookCover } from "@/components/library/BookCover";
 
 export interface DocumentCardData {
   id: string;
@@ -38,28 +39,21 @@ export function DocumentCard({ document }: DocumentCardProps) {
         </div>
       )}
 
-      {/* Cover / Thumbnail Preview */}
+      {/* Cover / Thumbnail Preview with pure CSS/Vector BookCover */}
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 border-b border-slate-100">
         <Link href={detailHref} className="absolute inset-0 block" aria-label={`View ${document.title}`}>
-          {document.coverUrl ? (
-            <img
-              src={document.coverUrl}
-              alt={document.title}
-              className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-103"
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-slate-100">
-              <BookOpen className="w-10 h-10 text-slate-400 mb-2" />
-              <p className="font-semibold text-xs line-clamp-2 text-slate-800">
-                {document.title}
-              </p>
-            </div>
-          )}
+          <BookCover
+            title={document.title}
+            author={document.author}
+            categoryName={document.category?.name}
+            categorySlug={document.category?.slug}
+            pageCount={document.pageCount}
+            className="w-full h-full transition-transform duration-300 group-hover:scale-102"
+          />
         </Link>
 
         {/* Floating Quick Read Overlay on Hover */}
-        <div className="absolute inset-0 pointer-events-none bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-3">
+        <div className="absolute inset-0 pointer-events-none bg-slate-900/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-3 z-10">
           <Link
             href={readHref}
             className="pointer-events-auto w-full py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs text-center shadow-md flex items-center justify-center gap-1.5 transition-transform transform translate-y-1 group-hover:translate-y-0"

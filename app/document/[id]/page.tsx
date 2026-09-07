@@ -7,6 +7,8 @@ import { Footer } from "@/components/layout/Footer";
 import { DocumentActions } from "@/components/library/DocumentActions";
 import { DocumentCard } from "@/components/library/DocumentCard";
 import { formatBytes, formatDate } from "@/lib/utils";
+import { BookCover } from "@/components/library/BookCover";
+import { getBookContent } from "@/lib/data/documentContents";
 import {
   FileText,
   Eye,
@@ -15,6 +17,9 @@ import {
   Tag as TagIcon,
   User,
   BookOpen,
+  ListOrdered,
+  BookOpenCheck,
+  Quote,
 } from "lucide-react";
 
 interface DocumentDetailPageProps {
@@ -51,6 +56,16 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
   if (!doc) {
     notFound();
   }
+
+  // Fetch book table of contents and formatted content
+  const bookContent = getBookContent(
+    doc.slug || doc.id,
+    doc.title,
+    doc.category?.slug || doc.categorySlug,
+    doc.category?.name,
+    doc.author,
+    doc.pageCount
+  );
 
   // Related documents in same category
   const relatedRes = await LibraryService.getDocuments({
@@ -94,24 +109,19 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
 
         {/* Main Document Details Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
-          {/* Left Column: Cover Preview */}
+          {/* Left Column: Cover Preview (Pure Code-Generated BookCover) */}
           <div className="lg:col-span-4 flex flex-col items-center">
             <div className="sticky top-24 w-full max-w-sm rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-white">
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-100">
-                {doc.coverUrl ? (
-                  <img
-                    src={doc.coverUrl}
-                    alt={doc.title}
-                    className="w-full h-full object-cover object-top"
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center bg-blue-50">
-                    <BookOpen className="w-16 h-16 text-blue-500 mb-2" />
-                    <p className="font-bold text-sm text-slate-900">
-                      {doc.title}
-                    </p>
-                  </div>
-                )}
+              <div className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50">
+                <BookCover
+                  title={doc.title}
+                  author={doc.author}
+                  categoryName={doc.category?.name}
+                  categorySlug={doc.category?.slug || doc.categorySlug}
+                  pageCount={doc.pageCount}
+                  size="lg"
+                  className="w-full h-full"
+                />
               </div>
 
               <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600 font-medium">
@@ -231,6 +241,102 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
                   </div>
                 </div>
               </div>
+              {/* Table of Contents Section (สารบัญเนื้อหา) */}
+              <div className="mt-8 pt-8 border-t border-slate-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <ListOrdered className="w-5 h-5 text-blue-600" />
+                    <h3 className="text-base font-bold text-slate-900">
+                      สารบัญเนื้อหา ({bookContent.tableOfContents.length} บท)
+                    </h3>
+                  </div>
+                  <span className="text-xs text-slate-500 font-medium">
+                    คลิกเพื่อเปิดอ่านบทที่ต้องการ
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  {bookContent.tableOfContents.map((ch, idx) => (
+                    <Link
+                      key={ch.id || idx}
+                      href={`/read/${doc.slug || doc.id}?page=${ch.page}`}
+                      className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50/50 hover:shadow-xs transition-all"
+                    >
+                      <div className="flex items-start sm:items-center gap-3">
+                        <span className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-bold text-xs flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                          {idx + 1}
+                        </span>
+                        <div>
+                          <h4 className="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                            {ch.title}
+                          </h4>
+                          <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
+                            {ch.summary}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-2 sm:mt-0 flex items-center gap-3 flex-shrink-0 text-xs">
+                        <span className="px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 font-semibold group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
+                          หน้า {ch.page}
+                        </span>
+                        <span className="hidden sm:inline font-bold text-blue-600 group-hover:translate-x-0.5 transition-transform">
+                          เริ่มอ่าน →
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sample Excerpt Preview Section */}
+              {bookContent.pages.length > 0 && (
+                <div className="mt-8 pt-8 border-t border-slate-200">
+                  <div className="flex items-center gap-2 mb-4">
+                    <BookOpenCheck className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-base font-bold text-slate-900">
+                      ตัวอย่างเนื้อหา (หน้า 1)
+                    </h3>
+                  </div>
+
+                  <div className="p-6 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white">
+                    <h4 className="text-base font-extrabold text-slate-900 mb-1">
+                      {bookContent.pages[0].chapterTitle}
+                    </h4>
+                    {bookContent.pages[0].subtitle && (
+                      <p className="text-xs font-semibold text-blue-600 mb-4">
+                        {bookContent.pages[0].subtitle}
+                      </p>
+                    )}
+
+                    <div className="space-y-3 text-sm text-slate-700 leading-relaxed">
+                      {bookContent.pages[0].paragraphs.map((p, i) => (
+                        <p key={i}>{p}</p>
+                      ))}
+                    </div>
+
+                    {bookContent.pages[0].quote && (
+                      <div className="my-5 p-4 rounded-xl bg-amber-50/60 border-l-4 border-amber-500 text-slate-800 text-xs sm:text-sm italic flex items-start gap-2.5">
+                        <Quote className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <span>"{bookContent.pages[0].quote}"</span>
+                      </div>
+                    )}
+
+                    <div className="mt-6 pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <span className="text-xs text-slate-500">
+                        อ่านต่อฉบับเต็มได้ในโปรแกรมอ่านออนไลน์ (เลือกได้ทั้งแบบเปิดทีละหน้า หรือเลื่อนยาวแบบเว็บตูน)
+                      </span>
+                      <Link
+                        href={`/read/${doc.slug || doc.id}?page=1`}
+                        className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors"
+                      >
+                        <BookOpen className="w-3.5 h-3.5" />
+                        อ่านฉบับเต็มทั้งเล่ม
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
